@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Add movie</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="filmForm">
+        <mat-form-field>
+            <input matInput formControlName="id" placeholder="id" hidden>
+          </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="title" placeholder="Title">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="year" placeholder="Year">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="director" placeholder="Director">
+        </mat-form-field>
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="filmForm.value" [disabled]="filmForm.invalid" (click)="save()">Save</button>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>

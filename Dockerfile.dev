@@ -1,0 +1,24 @@
+FROM node:14-alpine
+# Create group and user mymovie
+RUN addgroup mymovie && adduser --system --ingroup mymovie mymovie
+# Set working directory
+WORKDIR /app/mymovie-frontend
+# Copy package.json and package-lock.json
+COPY package.json .
+COPY package-lock.json .
+# Install Angular CLI &npm packages
+RUN npm install -g @angular/cli@latest
+RUN npm install
+# Copy the Angular application to the working directory
+COPY . .
+# Change owner of the application folder, giving privileges to mymovie
+RUN chown -R mymovie:mymovie .
+RUN chmod -R 700 .
+# Use user mymovie
+USER mymovie
+# Expose port 4200 to allow access to the Angular application 
+# and port 49153 for live reload
+EXPOSE 4200
+EXPOSE 49153
+# Run the Angular application
+CMD ["npm", "start"]
